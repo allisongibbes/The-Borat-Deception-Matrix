@@ -1,0 +1,113 @@
+<style>
+  .borat-widget {
+    font-family: Arial, sans-serif;
+    max-width: 850px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #f4f6f8;
+    text-align: center;
+  }
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #111827;
+    border: 2px solid #374151;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .borat-btn {
+    padding: 10px 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid #9ca3af;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .borat-btn:hover { background-color: #f3f4f6; }
+  .borat-btn.active { background-color: #d97706; color: white; border-color: #b45309; }
+  .description-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #9ca3af;
+    font-size: 1rem;
+    color: #1f2937;
+    text-align: left;
+    min-height: 80px;
+    line-height: 1.4;
+  }
+</style>
+
+<div class="borat-widget">
+  <h2>The Borat Deception Matrix</h2>
+  <p>Examine the three layers that transform a comedy film into a radical sociological experiment.</p>
+  <div class="stage" id="boratStage"></div>
+  <div class="nav-grid">
+    <button class="borat-btn active" onclick="setBoratMode('perf')">1. Persistent Performance Art</button>
+    <button class="borat-btn" onclick="setBoratMode('trap')">2. The Documentary Trap</button>
+    <button class="borat-btn" onclick="setBoratMode('mirror')">3. Exposing Cultural Subtext</button>
+  </div>
+  <div class="description-box" id="boratDesc">
+    <strong>Persistent Performance Art:</strong> Sacha Baron Cohen never breaks character on or off camera during production, turning real-world public interactions into unscripted theater.
+  </div>
+</div>
+
+<script>
+  const boratStage = document.getElementById('boratStage');
+  const boratDesc = document.getElementById('boratDesc');
+  const boratButtons = document.querySelectorAll('.borat-widget .borat-btn');
+
+  const boratModes = {
+    perf: {
+      svg: `<svg width="450" height="250" viewBox="0 0 450 250">
+              <rect x="125" y="45" width="200" height="150" rx="8" fill="#1f2937" stroke="#fbbf24" stroke-width="2"/>
+              <circle cx="225" cy="100" r="30" fill="#f59e0b" opacity="0.3"/>
+              <text x="225" y="105" fill="#fbbf24" font-size="12" font-weight="bold" text-anchor="middle">METHOD ACTING</text>
+              <text x="225" y="145" fill="#f3f4f6" font-size="11" text-anchor="middle">Sustained 24/7 Character Immersion</text>
+              <text x="225" y="220" fill="#9ca3af" font-size="11" text-anchor="middle">Subjects believe they are interacting with a real foreign journalist</text>
+            </svg>`,
+      text: "<strong>Persistent Performance Art:</strong> Sacha Baron Cohen never breaks character on or off camera during production, turning real-world public interactions into unscripted theater."
+    },
+    trap: {
+      svg: `<svg width="450" height="250" viewBox="0 0 450 250">
+              <rect x="125" y="45" width="200" height="150" rx="8" fill="#1f2937" stroke="#f87171" stroke-width="2"/>
+              <path d="M 175 100 L 275 100 M 225 75 L 225 125" stroke="#f87171" stroke-width="3"/>
+              <text x="225" y="150" fill="#f87171" font-size="12" font-weight="bold" text-anchor="middle">FORMAL DECEPTION</text>
+              <text x="225" y="170" fill="#f3f4f6" font-size="10" text-anchor="middle">Using cheap TV news optics to gain trust</text>
+              <text x="225" y="220" font-size="11" fill="#9ca3af" text-anchor="middle">The camera framing tricks participants into lowering their guard</text>
+            </svg>`,
+      text: "<strong>The Documentary Trap:</strong> By utilizing rough hand-held camera work and standard interview setups, the production mimics legitimate foreign broadcast journalism, disarming interviewees."
+    },
+    mirror: {
+      svg: `<svg width="450" height="250" viewBox="0 0 450 250">
+              <rect x="125" y="45" width="200" height="150" rx="8" fill="#1f2937" stroke="#34d399" stroke-width="2"/>
+              <circle cx="225" cy="110" r="35" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4,4"/>
+              <text x="225" y="115" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">SOCIAL REFLECTION</text>
+              <text x="225" y="220" fill="#9ca3af" font-size="11" text-anchor="middle">Capturing authentic, unscripted cultural biases and social etiquette</text>
+            </svg>`,
+      text: "<strong>Exposing Cultural Subtext:</strong> Because the environment is unscripted, the real subjects reveal genuine social attitudes, prejudices, and blind spots, turning the film into a mirror of society."
+    }
+  };
+
+  function setBoratMode(mode) {
+    boratButtons.forEach(b => b.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    boratStage.innerHTML = boratModes[mode].svg;
+    boratDesc.innerHTML = boratModes[mode].text;
+  }
+</script>
